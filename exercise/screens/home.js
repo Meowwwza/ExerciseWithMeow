@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Image, View, TextInput, Button, StyleSheet, SafeAreaView } from 'react-native';
-import {collection, addDoc} from 'firebase/firestore'
-import {db} from '../components/config'
+import { collection, addDoc } from 'firebase/firestore'
+import { db } from '../components/config'
 import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
@@ -11,15 +11,15 @@ export default function HomeScreen() {
 
   function create() {
     addDoc(collection(db, "profile"), {
-        email: email,
-        password: password,
+      email: email,
+      password: password,
     }).then(() => {
-        console.log('data submitted (บันทึกข้อมูลเรียบร้อย)')
-        alert('เข้าสู่ระบบสำเร็จ!');
-        navigation.navigate('bmi');
+      console.log('data submitted (บันทึกข้อมูลเรียบร้อย)')
+      alert('เข้าสู่ระบบสำเร็จ!');
+      navigation.navigate('bmi');
     }).catch((error) => {
-        console.log(error)
-        alert('เข้าสู่ระบบไม่สำเร็จ');
+      console.log(error)
+      alert('เข้าสู่ระบบไม่สำเร็จ');
     })
   }
 
@@ -54,19 +54,26 @@ export default function HomeScreen() {
     </SafeAreaView> */
 
     <SafeAreaView style={styles.container}>
-        <Text style={{ fontWeight:'800',fontSize:35}}>Exercise with Meow</Text>
+      <Text style={{ fontWeight: '800', fontSize: 35 }}>Exercise with Meow</Text>
 
-        <Image source={require('../assets/catmuscle.jpg')}
-        style={{ width:250, height:250, margin:20, borderRadius:15 }}/> 
-    
-        <TextInput value={email} onChangeText={(email) => {setEmail(email)}} 
+      <Image source={require('../assets/catmuscle.jpg')}
+        style={{ width: 250, height: 250, margin: 20, borderRadius: 15 }} />
+
+      <TextInput value={email} onChangeText={(email) => { setEmail(email) }}
         placeholder='Email' style={styles.textboxs} />
-       
-        <TextInput value={password} onChangeText={(password) => {setPassword(password)}}
-        placeholder='Password' secureTextEntry style={styles.textboxs} /> 
 
-        <Button title='Login' onPress={create} style={styles.button}/>
+      <TextInput value={password} onChangeText={(password) => { setPassword(password) }}
+        placeholder='Password' secureTextEntry style={styles.textboxs} />
+
+      <View style={styles.button}>
+        <Button title='Login' onPress={create}/>
+      </View>
+      <View style={styles.button}>
+        <Button title='Skip' onPress={() => navigation.navigate('bmi')}/>
+      </View>
         
+
+
     </SafeAreaView>
   );
 }
@@ -83,12 +90,14 @@ const styles = StyleSheet.create({
     padding: 12,
     borderColor: '#CBF1F5',
     borderWidth: 1,
-    borderRadius: 10,    
+    borderRadius: 10,
     backgroundColor: 'white',
     margin: 5,
   },
   button: {
     borderRadius: 20,
+    margin: 10,
+    width: '90%',
   },
   /* input: {
     height: 40,
